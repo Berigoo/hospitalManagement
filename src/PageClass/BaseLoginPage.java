@@ -1,12 +1,11 @@
 package PageClass;
 
 import misc.*;
-import sun.security.provider.MD2;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginPage extends JFrame {
+public class BaseLoginPage extends JFrame {
     private APanel main;
     private ALabel title;
     private ALabel tUsername;
@@ -16,7 +15,7 @@ public class LoginPage extends JFrame {
     private APasswordField password;
     private AButton submit;
 
-    public LoginPage(){
+    public BaseLoginPage (){
         main = new APanel(new GridBagLayout());
         title = new ALabel("Login Page", SwingConstants.CENTER);
         tUsername = new ALabel("Username: ", SwingConstants.LEFT);

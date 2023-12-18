@@ -1,6 +1,6 @@
 package AClass;
 
-import PageClass.LoginPage;
+import PageClass.BaseLoginPage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +16,10 @@ public class Base {
     protected int id = -1;
     protected String username;
     protected String password;
-    private final LoginPage loginPage;
+    private final BaseLoginPage loginPage;
     protected DBConn conn;
     public Base(){
-        loginPage = new LoginPage();
+        loginPage = new BaseLoginPage();
         conn = new DBConn();
     };
     public void setCreden(String username, String password){
@@ -71,7 +71,7 @@ public class Base {
         loginPage.setVisible(false);
     }
 
-    public LoginPage getLoginPage () {
+    public BaseLoginPage getLoginPage () {
         return loginPage;
     }
 }

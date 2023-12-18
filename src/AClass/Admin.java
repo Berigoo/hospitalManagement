@@ -1,9 +1,9 @@
 package AClass;
 
-import PageClass.AboutPage;
+import PageClass.AdminAboutPage;
 import PageClass.AdminMenu;
-import PageClass.DokterAdd;
-import PageClass.DumpPage;
+import PageClass.AdminDokterAdd;
+import PageClass.AdminDumpPage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,16 +15,16 @@ import java.util.List;
 public class Admin extends Base{
     private Base parent;
     protected AdminMenu mainMenu;
-    protected DokterAdd dokterAdd;
-    protected DumpPage listPasien;
-    protected AboutPage aboutPage;
+    protected AdminDokterAdd dokterAdd;
+    protected AdminDumpPage listPasien;
+    protected AdminAboutPage aboutPage;
     private int currDataId = -1;
     public Admin(){
         super();
         mainMenu = new AdminMenu();
-        dokterAdd = new DokterAdd();
-        listPasien = new DumpPage();
-        aboutPage = new AboutPage();
+        dokterAdd = new AdminDokterAdd();
+        listPasien = new AdminDumpPage();
+        aboutPage = new AdminAboutPage();
         dumpDokterInfo();
         refreshDokterTable();
         refreshListPasienTable();

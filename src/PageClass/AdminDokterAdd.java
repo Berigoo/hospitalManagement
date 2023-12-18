@@ -6,10 +6,9 @@ import misc.ALabel;
 import misc.ATable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Vector;
 
-public class DokterAdd extends BaseAddPage{
+public class AdminDokterAdd extends BaseAddPage{
     private ATable dataTable;
     private ALabel lDept;
     private ALabel lSpecialist;
@@ -22,7 +21,7 @@ public class DokterAdd extends BaseAddPage{
     private AButton hapus;
     private AButton simpan;
     private AButton back;
-    public DokterAdd(){
+    public AdminDokterAdd (){
         super("CRUD Dokter");
         deptModel = new DefaultComboBoxModel<>(new Vector<String>());
         specialistModel = new DefaultComboBoxModel<>(new Vector<String>());

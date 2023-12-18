@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class DumpPage extends JFrame {
+public class AdminDumpPage extends JFrame {
     private APanel main;
     protected GridBagConstraints c;
     private ALabel title;
@@ -17,7 +17,7 @@ public class DumpPage extends JFrame {
     private AButton back;
     private AButton delete;
 
-    public DumpPage(){
+    public AdminDumpPage (){
         main = new APanel(new GridBagLayout());
         c = new GridBagConstraints();
         title = new ALabel("List Pasien", SwingConstants.CENTER);
