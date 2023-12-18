@@ -1,3 +1,6 @@
+import AClass.Admin;
+import AClass.Base;
+
 import javax.swing.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -7,9 +10,27 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run () {
-                LoginPage loginPage = new LoginPage();
-
-                loginPage.setVisible(true);
+                //Object
+                Admin admin = new Admin();
+                Base individual = new Base();
+                individual.getLoginPage().getSubmit().addActionListener(e -> {
+                    String username = individual.getLoginPage().getUsername().getText();
+                    String password = new String(individual.getLoginPage().getPassword().getPassword());
+                    System.out.println(username + " " + password);
+                    individual.setCreden(username, password);
+                    switch(individual.getCredenType()){
+                        case PASIEN:
+                            break;
+                        case DOKTER:
+                            break;
+                        case ADMIN:
+                            admin.setCreden(username, password);
+                            admin.goToMainMenu();
+                            individual.unviewAll();
+                            break;
+                    }
+                });
+                individual.goToLoginPage();
             }
         });
     }

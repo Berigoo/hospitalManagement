@@ -1,9 +1,7 @@
 package misc;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class ALabel extends JLabel {
     private ComponentAdapter adapter;
@@ -15,6 +13,10 @@ public class ALabel extends JLabel {
 //
 //            }
 //        };
+    }
+    public ALabel(Icon icon){
+        super();
+        setIcon(icon);
     }
 
     public void addSizeWindowListener(ComponentAdapter adapter){
