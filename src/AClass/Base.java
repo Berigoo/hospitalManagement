@@ -21,10 +21,6 @@ public class Base {
     public Base(){
         loginPage = new LoginPage();
         conn = new DBConn();
-
-//        loginPage.getSubmit().addActionListener(e->{
-//            setCreden(loginPage.getUsername().getText(), loginPage.getPassword().getText());
-//        });
     };
     public void setCreden(String username, String password){
         this.username = username;

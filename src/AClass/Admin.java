@@ -133,6 +133,7 @@ public class Admin extends Base{
     @Override
     public void unviewAll () {
         super.unviewAll();
+        parent.unviewAll();
         mainMenu.setVisible(false);
         dokterAdd.setVisible(false);
         listPasien.setVisible(false);

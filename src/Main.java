@@ -1,5 +1,6 @@
 import AClass.Admin;
 import AClass.Base;
+import AClass.Pasien;
 
 import javax.swing.*;
 
@@ -12,15 +13,19 @@ public class Main {
             public void run () {
                 //Object
                 Admin admin = new Admin();
+                Pasien pasien = new Pasien();
                 Base individual = new Base();
                 individual.getLoginPage().getSubmit().addActionListener(e -> {
                     String username = individual.getLoginPage().getUsername().getText();
                     String password = new String(individual.getLoginPage().getPassword().getPassword());
                     System.out.println(username + " " + password);
                     individual.setCreden(username, password);
-                    System.out.println(individual.getCredenType());
                     switch(individual.getCredenType()){
                         case PASIEN:
+                            System.out.println("Pasien In");
+                            pasien.setParent(individual);
+                            pasien.setCreden(username, password);
+                            pasien.goToMainMenu();
                             break;
                         case DOKTER:
                             break;
@@ -29,7 +34,6 @@ public class Main {
                             admin.setParent(individual);
                             admin.setCreden(username, password);
                             admin.goToMainMenu();
-                            individual.unviewAll();
                             break;
                     }
                 });

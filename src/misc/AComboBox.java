@@ -10,4 +10,8 @@ public class AComboBox<T> extends JComboBox<T> {
     public AComboBox (ComboBoxModel<T> model) {
         super(model);
     }
+
+    public AComboBox () {
+
+    }
 }
