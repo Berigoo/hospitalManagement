@@ -7,4 +7,8 @@ public class APanel extends JPanel {
     public APanel(LayoutManager layout){
         super(layout);
     }
+
+    public APanel () {
+
+    }
 }

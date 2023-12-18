@@ -16,7 +16,7 @@ public class Base {
     protected int id = -1;
     protected String username;
     protected String password;
-    protected LoginPage loginPage;
+    private final LoginPage loginPage;
     protected DBConn conn;
     public Base(){
         loginPage = new LoginPage();
@@ -33,6 +33,7 @@ public class Base {
         verifikasi();
     }
     public void goToLoginPage (){
+        unviewAll();
         loginPage.setVisible(true);
     }
     public void verifikasi(){

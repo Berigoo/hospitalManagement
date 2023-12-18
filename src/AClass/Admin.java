@@ -1,7 +1,9 @@
 package AClass;
 
+import PageClass.AboutPage;
 import PageClass.AdminMenu;
 import PageClass.DokterAdd;
+import PageClass.DumpPage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,25 +13,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Admin extends Base{
+    private Base parent;
     protected AdminMenu mainMenu;
     protected DokterAdd dokterAdd;
+    protected DumpPage listPasien;
+    protected AboutPage aboutPage;
     private int currDataId = -1;
     public Admin(){
         super();
         mainMenu = new AdminMenu();
         dokterAdd = new DokterAdd();
+        listPasien = new DumpPage();
+        aboutPage = new AboutPage();
         dumpDokterInfo();
-        refreshTable();
+        refreshDokterTable();
+        refreshListPasienTable();
 
 
-
+        //main menu
         mainMenu.getDoctorAdd().addActionListener(e->{
             goToDokterAdd();
         });
+        mainMenu.getListPatients().addActionListener(e->{
+            goToListPatient();
+        });
+        mainMenu.getAbout().addActionListener(e->{
+            goToAboutPage();
+        });
+        mainMenu.getLogout().addActionListener(e->{
+            unviewAll();
+            parent.goToLoginPage();
+        });
+
+        //CRUD dokter
         dokterAdd.getTambah().addActionListener(e->{
             if(inserDokterData(dokterAdd.getUsername().getText(), dokterAdd.getPasswd().getText(), dokterAdd.getNama().getText(), dokterAdd.getAlamat().getText(),
                     dokterAdd.getEmail().getText(), dokterAdd.getTelp().getText(), (String)dokterAdd.getDept().getSelectedItem(), (String)dokterAdd.getSpecialist().getSelectedItem())) {
-                refreshTable();
+                refreshDokterTable();
             }
         });
         dokterAdd.getHapus().addActionListener(e->{
@@ -37,7 +57,7 @@ public class Admin extends Base{
             String id = (String)dokterAdd.getDataTable().getValueAt(row, 0);
             if (conn.execPreparedQuery("DELETE FROM dokter WHERE dokter_id=?", new String[]{id})){
                 conn.execPreparedQuery("DELETE FROM credentials WHERE credentials_id=?", new String[]{id});
-                refreshTable();
+                refreshDokterTable();
             }
         });
         dokterAdd.getEdit().addActionListener(e->{
@@ -67,9 +87,30 @@ public class Admin extends Base{
                     dokterAdd.getEmail().getText(), dokterAdd.getTelp().getText(), (String)dokterAdd.getDept().getSelectedItem(), (String)dokterAdd.getSpecialist().getSelectedItem())) {
                 currDataId = -1;
             }
-            refreshTable();
+            refreshDokterTable();
+        });
+        dokterAdd.getBack().addActionListener(e->{
+            goToMainMenu();
         });
 
+        //list pasien
+        listPasien.getBack().addActionListener(e->{
+            goToMainMenu();
+        });
+        listPasien.getDelete().addActionListener(e->{
+            int row = listPasien.getTable().getSelectedRow();
+            int id = (int)listPasien.getTable().getValueAt(row, 0);
+            if(conn.execPreparedQuery("DELETE FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)})) {
+                conn.execPreparedQuery("DELETE FROM credentials WHERE credentials_id=?", new String[]{Integer.toString(id)});
+                refreshListPasienTable();
+            }
+        });
+
+        //about page
+        aboutPage.getBack().addActionListener(e->{
+            unviewAll();
+            goToMainMenu();
+        });
     }
 
     public void goToMainMenu(){
@@ -80,12 +121,22 @@ public class Admin extends Base{
         unviewAll();
         dokterAdd.setVisible(true);
     }
+    public void goToListPatient(){
+        unviewAll();
+        listPasien.setVisible(true);
+    }
+    public void goToAboutPage(){
+        unviewAll();
+        aboutPage.setVisible(true);
+    }
 
     @Override
     public void unviewAll () {
         super.unviewAll();
         mainMenu.setVisible(false);
         dokterAdd.setVisible(false);
+        listPasien.setVisible(false);
+        aboutPage.setVisible(false);
     }
 
     protected String[][] dumpDokterData(){
@@ -105,8 +156,34 @@ public class Admin extends Base{
                 tmp2.add(res.getString("department"));
                 tmp2.add(res.getString("specialist"));
                 tmp.add(tmp2);
-                dokterAdd.getDeptModel().addElement(res.getString("department"));
-                dokterAdd.getSpecialistModel().addElement(res.getString("specialist"));
+            }
+            result = new String[tmp.size()][tmp.get(0).size()];
+            for (int i=0; i<tmp.size(); i++){
+                for (int j=0; j<tmp.get(0).size(); j++){
+                    result[i][j] = tmp.get(i).get(j);
+                }
+            }
+            return result;
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    protected String[][] dumpPasienData(){
+        String[][] result;
+        try {
+            List<List<String>> tmp = new ArrayList<>();
+            ResultSet res = conn.execQPreparedQuery("SELECT * FROM pasien INNER JOIN credentials ON pasien.pasien_id = credentials.credentials_id", new String[]{});
+            while (res.next()){
+                List<String> tmp2 = new ArrayList<>();
+                tmp2.add(res.getString("pasien_id"));
+                tmp2.add(res.getString("username"));
+                tmp2.add(res.getString("password"));
+                tmp2.add(res.getString("pasien_nama"));
+                tmp2.add(res.getString("pasien_alamat"));
+                tmp2.add(res.getString("pasien_email"));
+                tmp2.add(res.getString("pasien_telp"));
+                tmp.add(tmp2);
             }
             result = new String[tmp.size()][tmp.get(0).size()];
             for (int i=0; i<tmp.size(); i++){
@@ -140,10 +217,15 @@ public class Admin extends Base{
             return false;
         }
     }
-    private void refreshTable(){
+    private void refreshDokterTable (){
         DefaultTableModel model = new DefaultTableModel();
-        model.setDataVector(dumpDokterData(), new String[]{"id", "username", "Password", "nama", "alamat", "e-mail", "telp", "department", "specialist"});
+        model.setDataVector(dumpDokterData(), new String[]{"id", "username", "password", "nama", "alamat", "e-mail", "telp", "department", "specialist"});
         dokterAdd.getDataTable().setModel(model);
+    }
+    private void refreshListPasienTable(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.setDataVector(dumpPasienData(), new String[]{"id", "username", "password", "nama", "alamat", "e-mail", "telp"});
+        listPasien.getTable().setModel(model);
     }
     private void dumpDokterInfo(){              //need improvements
         DefaultComboBoxModel<String> dept = new DefaultComboBoxModel<>();
@@ -177,5 +259,10 @@ public class Admin extends Base{
             }
         }
         return false;
+    }
+    public void setParent(Base parent){
+        if(parent != null){
+            this.parent = parent;
+        }
     }
 }

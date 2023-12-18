@@ -75,6 +75,12 @@ public class DokterAdd extends BaseAddPage{
         c.gridx = 1;
         main.add(simpan, c);
 
+        c.gridy = 12;
+        c.weightx = .1;
+        c.weighty = .1;
+        c.ipadx = -100;
+        main.add(back, c);
+
 //        add(back, BorderLayout.BEFORE_LINE_BEGINS);
         add(main);
     }

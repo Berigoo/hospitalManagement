@@ -26,6 +26,7 @@ public class Main {
                             break;
                         case ADMIN:
                             System.out.println("Admin In");
+                            admin.setParent(individual);
                             admin.setCreden(username, password);
                             admin.goToMainMenu();
                             individual.unviewAll();
