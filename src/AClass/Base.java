@@ -37,7 +37,7 @@ public class Base {
     }
     public void verifikasi(){
         try {
-            ResultSet res = conn.execPreparedQuery("SELECT credentials_id AS id FROM credentials WHERE username=? && password=?",
+            ResultSet res = conn.execQPreparedQuery("SELECT credentials_id AS id FROM credentials WHERE username=? && password=?",
                     new String[]{username, password});
             while(res.next()) {
                 id = res.getInt("id");
@@ -52,15 +52,15 @@ public class Base {
         ResultSet res;
         if(id != -1){
             try {
-                res = conn.execPreparedQuery("SELECT * FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)});
+                res = conn.execQPreparedQuery("SELECT * FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)});
                 if(res.next()){
                     return EPrivilege.PASIEN;
                 }
-                res = conn.execPreparedQuery("SELECT * FROM dokter WHERE dokter_id=?", new String[]{Integer.toString(id)});
+                res = conn.execQPreparedQuery("SELECT * FROM dokter WHERE dokter_id=?", new String[]{Integer.toString(id)});
                 if(res.next()){
                     return EPrivilege.DOKTER;
                 }
-                res = conn.execPreparedQuery("SELECT * FROM admins WHERE admin_id=?", new String[]{Integer.toString(id)});
+                res = conn.execQPreparedQuery("SELECT * FROM admins WHERE admin_id=?", new String[]{Integer.toString(id)});
                 if(res.next()){
                     return EPrivilege.ADMIN;
                 }

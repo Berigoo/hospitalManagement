@@ -18,7 +18,7 @@ public class DBConn {
     public Connection getConn () {
         return conn;
     }
-    public ResultSet execPreparedQuery(String query, String[]fillData){
+    public ResultSet execQPreparedQuery (String query, String[]fillData){
         try {
             PreparedStatement statement = conn.prepareStatement(query);
             for(int i=1; i<=fillData.length; i++){
@@ -29,5 +29,18 @@ public class DBConn {
             System.out.println(e);
         }
         return null;
+    }
+
+    public boolean execPreparedQuery(String query, String[]fillData){
+        try {
+            PreparedStatement statement = conn.prepareStatement(query);
+            for(int i=1; i<=fillData.length; i++){
+                statement.setString(i, fillData[i-1]);
+            }
+            return statement.execute();
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return false;
     }
 }

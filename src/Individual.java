@@ -23,7 +23,7 @@ public class Individual implements Individu {
     @Override
     public int verifikasi (){
         try {
-            ResultSet res = conn.execPreparedQuery("SELECT credentials_id AS count FROM credentials WHERE username=? && password=?",
+            ResultSet res = conn.execQPreparedQuery("SELECT credentials_id AS count FROM credentials WHERE username=? && password=?",
                     new String[]{username, pass});
             while(res.next()) {
                 return res.getInt("id");
@@ -37,15 +37,15 @@ public class Individual implements Individu {
     public int createChild(int id){
         ResultSet res;
         try {
-            res = conn.execPreparedQuery("SELECT * FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)});
+            res = conn.execQPreparedQuery("SELECT * FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)});
             if (res.next()){
                 return 1;
             }
-            res = conn.execPreparedQuery("SELECT * FROM dokter WHERE dokter_id=?", new String[]{Integer.toString(id)});
+            res = conn.execQPreparedQuery("SELECT * FROM dokter WHERE dokter_id=?", new String[]{Integer.toString(id)});
             if (res.next()){
                 return 2;
             }
-            res = conn.execPreparedQuery("SELECT * FROM admins WHERE admin_id=?", new String[]{Integer.toString(id)});
+            res = conn.execQPreparedQuery("SELECT * FROM admins WHERE admin_id=?", new String[]{Integer.toString(id)});
             if (res.next()){
                 return 3;
             }

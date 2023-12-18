@@ -58,4 +58,19 @@ public class AdminMenu extends JFrame {
         main.setBorder(new EmptyBorder(100, 100, 100, 100));
         add(main);
     }
+
+    public AButton getDoctorAdd () {
+        return doctorAdd;
+    }
+    public AButton getListPatients () {
+        return listPatients;
+    }
+
+    public AButton getAbout () {
+        return about;
+    }
+
+    public AButton getLogout () {
+        return logout;
+    }
 }

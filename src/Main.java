@@ -18,12 +18,14 @@ public class Main {
                     String password = new String(individual.getLoginPage().getPassword().getPassword());
                     System.out.println(username + " " + password);
                     individual.setCreden(username, password);
+                    System.out.println(individual.getCredenType());
                     switch(individual.getCredenType()){
                         case PASIEN:
                             break;
                         case DOKTER:
                             break;
                         case ADMIN:
+                            System.out.println("Admin In");
                             admin.setCreden(username, password);
                             admin.goToMainMenu();
                             individual.unviewAll();
