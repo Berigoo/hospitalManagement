@@ -17,12 +17,13 @@ public class PasienMenu extends JFrame {
     private AButton logout;
 
     public PasienMenu(){
-        ImageIcon icon = new ImageIcon(new ImageIcon("images/img1.jpg").getImage().getScaledInstance(500, 100, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon("images/img1.jpg").getImage().getScaledInstance(1080/4, 720/4, Image.SCALE_SMOOTH));
         GridBagConstraints c = new GridBagConstraints();
 
         main = new APanel(new GridBagLayout());
         title = new ALabel("Menu Utama Pasien", SwingConstants.CENTER);
         header = new ALabel(icon);
+        header.setHorizontalAlignment(SwingConstants.CENTER);
         dataDiri = new AButton("Edit Data Diri");
         janjiTemu = new AButton("Tambah Janji Temu");
         logout = new AButton("Log Out");
@@ -30,16 +31,19 @@ public class PasienMenu extends JFrame {
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 0;
-        c.weighty = .8;
+        c.weighty = .4;
         c.weightx = 1;
         c.insets = new Insets(10, 5, 10 , 5);
         main.add(title, c);
 
         c.gridy = 1;
-        c.weighty = 1;
+        c.weighty = .5;
+        c.weightx = .5;
         main.add(header, c);
 
         c.gridy = 2;
+        c.weighty = .1;
+        c.weightx = .1;
         main.add(dataDiri, c);
 
         c.gridy = 3;
