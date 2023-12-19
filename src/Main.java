@@ -1,5 +1,6 @@
 import AClass.Admin;
 import AClass.Base;
+import AClass.Dokter;
 import AClass.Pasien;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class Main {
                 //Object
                 Admin admin = new Admin();
                 Pasien pasien = new Pasien();
+                Dokter dokter = new Dokter();
                 Base individual = new Base();
                 individual.getLoginPage().getSubmit().addActionListener(e -> {
                     String username = individual.getLoginPage().getUsername().getText();
@@ -28,6 +30,10 @@ public class Main {
                             pasien.goToMainMenu();
                             break;
                         case DOKTER:
+                            System.out.println("Dokter In");
+                            dokter.setParent(individual);
+                            dokter.setCreden(username, password);
+                            dokter.goToMainMenu();
                             break;
                         case ADMIN:
                             System.out.println("Admin In");

@@ -10,8 +10,8 @@ import java.awt.*;
 
 public class PasienMenu extends JFrame {
     private APanel main;
-    private ALabel title;
-    private ALabel header;
+    protected ALabel title;
+    protected ALabel header;
     private AButton dataDiri;
     private AButton janjiTemu;
     private AButton logout;
