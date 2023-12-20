@@ -59,11 +59,11 @@ public class Pasien extends Base{
 
     public void updateMyOwnData(String username, String passwd, String nama, String alamat, String email, String telp){
         if(id != -1) {
-            if(conn.execPreparedQuery("UPDATE pasien SET pasien_nama=?, pasien_alamat=?, pasien_email=?, pasien_telp=? WHERE pasien_id=?",
-                    new String[]{nama, alamat, email, telp, Integer.toString(id)})){
-                conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?",
-                        new String[]{username, passwd, Integer.toString(id)});
-                }
+            if(conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?",
+                    new String[]{username, passwd, Integer.toString(id)})) {
+                conn.execPreparedQuery("UPDATE pasien SET pasien_nama=?, pasien_alamat=?, pasien_email=?, pasien_telp=? WHERE pasien_id=?",
+                        new String[]{nama, alamat, email, telp, Integer.toString(id)});
+            }
         }
     }
     public void dumpMyOwnData(){

@@ -208,13 +208,13 @@ public class Admin extends Base{
         try{
             ResultSet res = conn.execQPreparedQuery("SELECT dokter_info_id FROM dokter_info WHERE department=? && specialist=?", new String[]{dept, specialist});
             if(res.next()) {
-                conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, passwd});
-                ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, passwd});
-                infoId = res.getInt("dokter_info_id");
-                if(res2.next()) {
-                    credenId = res2.getInt("credentials_id");
-                    conn.execPreparedQuery("INSERT INTO dokter VALUES(?, ?, ?, ?, ?, ?)", new String[]{Integer.toString(credenId), nama, alamat, email, telp, Integer.toString(infoId)});
-                    return true;
+                if(conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, passwd})) {
+                    ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, passwd});
+                    infoId = res.getInt("dokter_info_id");
+                    if (res2.next()) {
+                        credenId = res2.getInt("credentials_id");
+                        return conn.execPreparedQuery("INSERT INTO dokter VALUES(?, ?, ?, ?, ?, ?)", new String[]{Integer.toString(credenId), nama, alamat, email, telp, Integer.toString(infoId)});
+                    }
                 }
             }
             return false;
@@ -253,10 +253,10 @@ public class Admin extends Base{
                 ResultSet res = conn.execQPreparedQuery("SELECT dokter_info_id FROM dokter_info WHERE department=? && specialist=?", new String[]{dept, specialist});
                 if(res.next()) {
                     String infoId = res.getString("dokter_info_id");
-                    conn.execPreparedQuery("UPDATE dokter SET dokter_nama=?, dokter_alamat=?, dokter_email=?, dokter_telp=?, info=? WHERE dokter_id=?",
-                            new String[]{nama, alamat, email, telp, infoId, Integer.toString(id)});
-                    conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?", new String[]{username, password, Integer.toString(id)});
-                    return true;
+                    if(conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?", new String[]{username, password, Integer.toString(id)})) {
+                        return conn.execPreparedQuery("UPDATE dokter SET dokter_nama=?, dokter_alamat=?, dokter_email=?, dokter_telp=?, info=? WHERE dokter_id=?",
+                                new String[]{nama, alamat, email, telp, infoId, Integer.toString(id)});
+                    }
                 }
             }catch (SQLException e){
                 System.out.println(e);

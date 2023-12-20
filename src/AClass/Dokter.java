@@ -93,8 +93,9 @@ public class Dokter extends Base{
         dokterJanjiTemu.setVisible(false);
     }
     private void updateData(String username, String password, String telp){
-        conn.execPreparedQuery("UPDATE dokter SET dokter_telp=? WHERE dokter_id=?", new String[]{telp, Integer.toString(id)});
-        conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?", new String[]{username, password, Integer.toString(id)});
+        if(conn.execPreparedQuery("UPDATE credentials SET username=?, password=? WHERE credentials_id=?", new String[]{username, password, Integer.toString(id)})) {
+            conn.execPreparedQuery("UPDATE dokter SET dokter_telp=? WHERE dokter_id=?", new String[]{telp, Integer.toString(id)});
+        }
     }
     public void populateData(){
         try{

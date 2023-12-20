@@ -100,13 +100,13 @@ public class Base {
     }
     private boolean insertPasien(String username, String password, String nama, String alamat, String email, String telp){
         try {
-            conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, password});
-            ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, password});
-                if(res2.next()) {
+            if(conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, password})) {
+                ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, password});
+                if (res2.next()) {
                     int credenId = res2.getInt("credentials_id");
-                    conn.execPreparedQuery("INSERT INTO pasien VALUES(?, ?, ?, ?, ?)", new String[]{Integer.toString(credenId), nama, alamat, email, telp});
-                    return true;
+                    return conn.execPreparedQuery("INSERT INTO pasien VALUES(?, ?, ?, ?, ?)", new String[]{Integer.toString(credenId), nama, alamat, email, telp});
                 }
+            }
         }catch (SQLException e){
             System.out.println(e);
         }
