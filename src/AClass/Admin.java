@@ -25,9 +25,7 @@ public class Admin extends Base{
         dokterAdd = new AdminDokterAdd();
         listPasien = new AdminDumpPage();
         aboutPage = new AdminAboutPage();
-        dumpDokterInfo();
         refreshDokterTable();
-        refreshListPasienTable();
 
 
         //main menu
@@ -92,6 +90,9 @@ public class Admin extends Base{
         dokterAdd.getBack().addActionListener(e->{
             goToMainMenu();
         });
+        dokterAdd.getDept().addActionListener(e->{
+            triggerUpdateSpecialistComboBox((String) dokterAdd.getDept().getSelectedItem());
+        });
 
         //list pasien
         listPasien.getBack().addActionListener(e->{
@@ -99,7 +100,7 @@ public class Admin extends Base{
         });
         listPasien.getDelete().addActionListener(e->{
             int row = listPasien.getTable().getSelectedRow();
-            int id = (int)listPasien.getTable().getValueAt(row, 0);
+            int id = Integer.parseInt((String)listPasien.getTable().getValueAt(row, 0));
             if(conn.execPreparedQuery("DELETE FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)})) {
                 conn.execPreparedQuery("DELETE FROM credentials WHERE credentials_id=?", new String[]{Integer.toString(id)});
                 refreshListPasienTable();
@@ -119,10 +120,12 @@ public class Admin extends Base{
     }
     public void goToDokterAdd(){
         unviewAll();
+        populateDeptComboBox();
         dokterAdd.setVisible(true);
     }
     public void goToListPatient(){
         unviewAll();
+        refreshListPasienTable();
         listPasien.setVisible(true);
     }
     public void goToAboutPage(){
@@ -233,17 +236,14 @@ public class Admin extends Base{
         model.setDataVector(dumpPasienData(), new String[]{"id", "username", "password", "nama", "alamat", "e-mail", "telp"});
         listPasien.getTable().setModel(model);
     }
-    private void dumpDokterInfo(){              //need improvements
+    private void populateDeptComboBox (){              //need improvements
         DefaultComboBoxModel<String> dept = new DefaultComboBoxModel<>();
-        DefaultComboBoxModel<String> specialist = new DefaultComboBoxModel<>();
         try{
             ResultSet res = conn.execQPreparedQuery("SELECT * FROM dokter_info", new String[]{});
             while (res.next()){
                 dept.addElement(res.getString("department"));
-                specialist.addElement(res.getString("specialist"));
             }
             dokterAdd.getDept().setModel(dept);
-            dokterAdd.getSpecialist().setModel(specialist);
         }catch (SQLException e){
             System.out.println(e);
         }
@@ -269,6 +269,18 @@ public class Admin extends Base{
     public void setParent(Base parent){
         if(parent != null){
             this.parent = parent;
+        }
+    }
+    private void triggerUpdateSpecialistComboBox(String deptValue){
+        DefaultComboBoxModel<String> specialist = new DefaultComboBoxModel<>();
+        try{
+            ResultSet res = conn.execQPreparedQuery("SELECT * FROM dokter_info WHERE department=?", new String[]{deptValue});
+            while (res.next()){
+                specialist.addElement(res.getString("specialist"));
+            }
+            dokterAdd.getSpecialist().setModel(specialist);
+        }catch (SQLException e){
+            System.out.println(e);
         }
     }
 }
