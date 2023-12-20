@@ -43,7 +43,7 @@ public class AdminDumpPage extends JFrame {
         c.gridx = 1;
         main.add(delete, c);
 
-        main.setBorder(new EmptyBorder(100, 100, 100, 100));
+        main.setBorder(new EmptyBorder(5, 5, 5, 5));
         add(main);
     }
 

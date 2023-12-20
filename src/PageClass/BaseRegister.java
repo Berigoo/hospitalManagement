@@ -20,7 +20,7 @@ public class BaseRegister extends BaseAddPage{
         c.gridx = 1;
         main.add(register, c);
 
-        main.setBorder(new EmptyBorder(100, 100, 100, 100));
+        main.setBorder(new EmptyBorder(5, 5, 5, 5));
         add(main);
     }
 

@@ -105,7 +105,7 @@ abstract public class BaseAddPage extends JFrame {
         c.weightx = 1;
         main.add(telp, c);
 
-        main.setBorder(new EmptyBorder(100, 100, 100, 100));
+        main.setBorder(new EmptyBorder(5, 5, 5, 5));
     }
 
     public ATextField getNama () {
