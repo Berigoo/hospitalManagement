@@ -141,7 +141,7 @@ public class Admin extends Base{
     }
 
     protected String[][] dumpDokterData(){
-        String[][] result;
+        String[][] result = new String[][]{};
         try {
             List<List<String>> tmp = new ArrayList<>();
             ResultSet res = conn.execQPreparedQuery("SELECT * FROM dokter INNER JOIN dokter_info ON dokter.info = dokter_info.dokter_info_id INNER JOIN credentials ON dokter.dokter_id = credentials.credentials_id", new String[]{});
@@ -158,10 +158,12 @@ public class Admin extends Base{
                 tmp2.add(res.getString("specialist"));
                 tmp.add(tmp2);
             }
-            result = new String[tmp.size()][tmp.get(0).size()];
-            for (int i=0; i<tmp.size(); i++){
-                for (int j=0; j<tmp.get(0).size(); j++){
-                    result[i][j] = tmp.get(i).get(j);
+            if(tmp.size() != 0) {
+                result = new String[tmp.size()][tmp.get(0).size()];
+                for (int i = 0; i < tmp.size(); i++) {
+                    for (int j = 0; j < tmp.get(0).size(); j++) {
+                        result[i][j] = tmp.get(i).get(j);
+                    }
                 }
             }
             return result;
@@ -171,7 +173,7 @@ public class Admin extends Base{
         return null;
     }
     protected String[][] dumpPasienData(){
-        String[][] result;
+        String[][] result = new String[][]{};
         try {
             List<List<String>> tmp = new ArrayList<>();
             ResultSet res = conn.execQPreparedQuery("SELECT * FROM pasien INNER JOIN credentials ON pasien.pasien_id = credentials.credentials_id", new String[]{});
@@ -186,10 +188,12 @@ public class Admin extends Base{
                 tmp2.add(res.getString("pasien_telp"));
                 tmp.add(tmp2);
             }
-            result = new String[tmp.size()][tmp.get(0).size()];
-            for (int i=0; i<tmp.size(); i++){
-                for (int j=0; j<tmp.get(0).size(); j++){
-                    result[i][j] = tmp.get(i).get(j);
+            if(tmp.size() != 0) {
+                result = new String[tmp.size()][tmp.get(0).size()];
+                for (int i = 0; i < tmp.size(); i++) {
+                    for (int j = 0; j < tmp.get(0).size(); j++) {
+                        result[i][j] = tmp.get(i).get(j);
+                    }
                 }
             }
             return result;
