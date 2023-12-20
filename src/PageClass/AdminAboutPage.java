@@ -27,6 +27,7 @@ public class AdminAboutPage extends JFrame {
         main.add(desc);
         main.add(back);
 
+        pack();
         add(main, BorderLayout.CENTER);
     }
 

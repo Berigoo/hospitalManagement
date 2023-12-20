@@ -34,7 +34,7 @@ public class BaseLoginPage extends JFrame {
         Mid.add(password);
 
         GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         c.weighty = .8;
@@ -69,7 +69,9 @@ public class BaseLoginPage extends JFrame {
         c.gridx = 1;
         main.add(submit, c);
 
+        main.setMaximumSize(new Dimension(500, 500));
         add(main);
+        pack();
     }
 
     public APanel getMain () {

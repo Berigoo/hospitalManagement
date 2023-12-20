@@ -53,6 +53,7 @@ public class DokterEdit extends BaseAddPage{
         c.gridx = 1;
         main.add(save, c);
 
+        pack();
         add(main);
     }
 

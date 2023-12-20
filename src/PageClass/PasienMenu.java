@@ -54,6 +54,7 @@ public class PasienMenu extends JFrame {
         main.add(logout, c);
 
         main.setBorder(new EmptyBorder(5, 5, 5, 5));
+        pack();
         add(main);
     }
 

@@ -21,6 +21,7 @@ public class BaseRegister extends BaseAddPage{
         main.add(register, c);
 
         main.setBorder(new EmptyBorder(5, 5, 5, 5));
+        pack();
         add(main);
     }
 

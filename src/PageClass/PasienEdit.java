@@ -20,6 +20,7 @@ public class PasienEdit extends BaseAddPage{
         c.gridx = 0;
         main.add(back, c);
 
+        pack();
         add(main);
     }
 

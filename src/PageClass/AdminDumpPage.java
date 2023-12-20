@@ -44,6 +44,7 @@ public class AdminDumpPage extends JFrame {
         main.add(delete, c);
 
         main.setBorder(new EmptyBorder(5, 5, 5, 5));
+        pack();
         add(main);
     }
 

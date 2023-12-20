@@ -102,6 +102,7 @@ public class PasienJanjiTemu extends JFrame {
 
 
         main.setBorder(new EmptyBorder(5, 5, 5, 5));
+        pack();
         add(main);
     }
 

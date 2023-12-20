@@ -11,6 +11,7 @@ public class ALabel extends JLabel {
         setBackground(new Color(29, 32, 33));
         setForeground(new Color(222, 205, 158));
         setFont(new Font("JetBrains Mono", Font.BOLD, 15));
+        setMaximumSize(new Dimension(500, 250));
     }
     public ALabel(Icon icon){
         super();
@@ -18,5 +19,6 @@ public class ALabel extends JLabel {
         setBackground(new Color(29, 32, 33));
         setForeground(new Color(222, 205, 158));
         setFont(new Font("JetBrains Mono", Font.BOLD, 15));
+        setMaximumSize(new Dimension(500, 250));
     }
 }

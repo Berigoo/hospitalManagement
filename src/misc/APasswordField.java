@@ -10,5 +10,6 @@ public class APasswordField extends JPasswordField {
         setForeground(new Color(136, 183, 119));
         setRequestFocusEnabled(true);
         setCaretColor(new Color(202, 129, 149));
+        setMaximumSize(new Dimension(500, 150));
     }
 }

@@ -81,6 +81,7 @@ public class AdminDokterAdd extends BaseAddPage{
         main.add(back, c);
 
 //        add(back, BorderLayout.BEFORE_LINE_BEGINS);
+        pack();
         add(main);
     }
 
