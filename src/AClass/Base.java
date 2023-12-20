@@ -1,6 +1,7 @@
 package AClass;
 
 import PageClass.BaseLoginPage;
+import PageClass.BaseRegister;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +18,28 @@ public class Base {
     protected String username;
     protected String password;
     private final BaseLoginPage loginPage;
+    private final BaseRegister registerPage;
     protected DBConn conn;
     public Base(){
         loginPage = new BaseLoginPage();
+        registerPage = new BaseRegister();
         conn = new DBConn();
+
+        //login page
+        loginPage.getRegister().addActionListener(e->{
+            goToRegisterPage();
+        });
+
+        //register page
+        registerPage.getBack().addActionListener(e->{
+            goToLoginPage();
+        });
+        registerPage.getRegister().addActionListener(e->{
+            if(insertPasien(registerPage.getUsername().getText(), registerPage.getPasswd().getText(), registerPage.getNama().getText(),
+                    registerPage.getAlamat().getText(), registerPage.getEmail().getText(), registerPage.getTelp().getText())){
+                goToLoginPage();
+            }
+        });
     };
     public void setCreden(String username, String password){
         this.username = username;
@@ -31,6 +50,10 @@ public class Base {
     public void goToLoginPage (){
         unviewAll();
         loginPage.setVisible(true);
+    }
+    public void goToRegisterPage(){
+        unviewAll();
+        registerPage.setVisible(true);
     }
     public void verifikasi(){
         try {
@@ -69,9 +92,24 @@ public class Base {
     }
     public void unviewAll(){
         loginPage.setVisible(false);
+        registerPage.setVisible(false);
     }
 
     public BaseLoginPage getLoginPage () {
         return loginPage;
+    }
+    private boolean insertPasien(String username, String password, String nama, String alamat, String email, String telp){
+        try {
+            conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, password});
+            ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, password});
+                if(res2.next()) {
+                    int credenId = res2.getInt("credentials_id");
+                    conn.execPreparedQuery("INSERT INTO pasien VALUES(?, ?, ?, ?, ?)", new String[]{Integer.toString(credenId), nama, alamat, email, telp});
+                    return true;
+                }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return false;
     }
 }

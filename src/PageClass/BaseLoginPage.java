@@ -14,6 +14,7 @@ public class BaseLoginPage extends JFrame {
     private ATextField username;
     private APasswordField password;
     private AButton submit;
+    private AButton register;
 
     public BaseLoginPage (){
         main = new APanel(new GridBagLayout());
@@ -24,6 +25,7 @@ public class BaseLoginPage extends JFrame {
         username = new ATextField();
         password = new APasswordField();
         submit = new AButton("Login");
+        register = new AButton("Register");
 
         Mid.add(tUsername);
         Mid.add(username);
@@ -64,7 +66,9 @@ public class BaseLoginPage extends JFrame {
         c.gridx = 0;
         c.weighty = .2;
         c.weightx = .1;
-        c.gridwidth = 2;
+        c.gridwidth = 1;
+        main.add(register, c);
+        c.gridx = 1;
         main.add(submit, c);
 
         add(main);
@@ -84,5 +88,9 @@ public class BaseLoginPage extends JFrame {
 
     public AButton getSubmit () {
         return submit;
+    }
+
+    public AButton getRegister () {
+        return register;
     }
 }

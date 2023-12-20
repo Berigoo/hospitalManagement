@@ -128,7 +128,7 @@ public class Pasien extends Base{
         pasienJanjiTemu.getTable().setModel(model);
     }
     private String[][] populateJanjiTemuTable(){
-        String[][] result;
+        String[][] result = new String[][]{};
         try {
             List<List<String>> tmp = new ArrayList<>();
             ResultSet res = conn.execQPreparedQuery("SELECT * FROM janji_temu INNER JOIN dokter ON janji_temu.dokter_id = dokter.dokter_id WHERE janji_temu.pasien_id=?", new String[]{Integer.toString(id)});
@@ -142,10 +142,12 @@ public class Pasien extends Base{
                 tmp2.add(res.getString("status"));
                 tmp.add(tmp2);
             }
-            result = new String[tmp.size()][tmp.get(0).size()];
-            for (int i=0; i<tmp.size(); i++){
-                for (int j=0; j<tmp.get(0).size(); j++){
-                    result[i][j] = tmp.get(i).get(j);
+            if(tmp.size() != 0) {
+                result = new String[tmp.size()][tmp.get(0).size()];
+                for (int i = 0; i < tmp.size(); i++) {
+                    for (int j = 0; j < tmp.get(0).size(); j++) {
+                        result[i][j] = tmp.get(i).get(j);
+                    }
                 }
             }
             return result;
