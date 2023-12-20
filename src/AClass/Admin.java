@@ -209,6 +209,7 @@ public class Admin extends Base{
             ResultSet res = conn.execQPreparedQuery("SELECT dokter_info_id FROM dokter_info WHERE department=? && specialist=?", new String[]{dept, specialist});
             if(res.next()) {
                 if(conn.execPreparedQuery("INSERT INTO credentials VALUES(NULL, ?, ?)", new String[]{username, passwd})) {
+                    System.out.println(true);
                     ResultSet res2 = conn.execQPreparedQuery("SELECT credentials_id FROM credentials WHERE username=? && password=?", new String[]{username, passwd});
                     infoId = res.getInt("dokter_info_id");
                     if (res2.next()) {

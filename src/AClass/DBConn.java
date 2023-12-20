@@ -37,10 +37,11 @@ public class DBConn {
             for(int i=1; i<=fillData.length; i++){
                 statement.setString(i, fillData[i-1]);
             }
-            return statement.execute();
+            statement.execute();
         }catch (SQLException e){
             System.out.println(e);
+            return false;
         }
-        return false;
+        return true;
     }
 }
