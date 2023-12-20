@@ -23,6 +23,7 @@ public class AdminMenu extends JFrame {
 
         main = new APanel(new GridBagLayout());
         title = new ALabel("Menu Utama Admin", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         header = new ALabel(icon);
         doctorAdd = new AButton("Add Doctor");
         listPatients = new AButton("List Pasien");

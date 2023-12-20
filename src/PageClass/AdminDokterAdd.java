@@ -58,7 +58,7 @@ public class AdminDokterAdd extends BaseAddPage{
         c.gridy = 9;
         c.gridx = 0;
         c.gridwidth = 2;
-        main.add(new JScrollPane(dataTable), c);
+        main.add(dataTable.getPane(), c);
 
         c.gridwidth = 1;
         c.gridy = 10;

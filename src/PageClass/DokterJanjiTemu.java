@@ -18,6 +18,7 @@ public class DokterJanjiTemu extends JFrame {
         main = new APanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         title = new ALabel("Upcoming Janji Temu", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         table = new ATable();
         approve = new AButton("Approve");
         reject = new AButton("Reject");
@@ -36,7 +37,7 @@ public class DokterJanjiTemu extends JFrame {
         c.weightx = 1;
         c.weighty = 1;
         c.gridwidth = 2;
-        main.add(new JScrollPane(table), c);
+        main.add(table.getPane(), c);
 
         c.gridy = 2;
         c.gridx = 0;

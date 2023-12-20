@@ -27,6 +27,7 @@ abstract public class BaseAddPage extends JFrame {
 
     public BaseAddPage(String title){
         this.title = new ALabel(title, SwingConstants.CENTER);
+        this.title.setFont(this.title.getFont().deriveFont(24.0f));
         lUsername = new ALabel("Username: ", SwingConstants.LEFT);
         lPasswd = new ALabel("Password: ", SwingConstants.LEFT);
         lNama = new ALabel("Nama: ", SwingConstants.LEFT);

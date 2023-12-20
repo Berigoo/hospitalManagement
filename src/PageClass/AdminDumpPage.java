@@ -21,6 +21,7 @@ public class AdminDumpPage extends JFrame {
         main = new APanel(new GridBagLayout());
         c = new GridBagConstraints();
         title = new ALabel("List Pasien", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         table = new ATable();
         back = new AButton("Back");
         delete = new AButton("Hapus");
@@ -32,7 +33,7 @@ public class AdminDumpPage extends JFrame {
         main.add(title);
 
         c.gridy = 1;
-        main.add(new JScrollPane(table), c);
+        main.add(table.getPane(), c);
 
         c.gridy = 2;
         c.gridwidth = 1;

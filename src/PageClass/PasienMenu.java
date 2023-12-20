@@ -22,6 +22,7 @@ public class PasienMenu extends JFrame {
 
         main = new APanel(new GridBagLayout());
         title = new ALabel("Menu Utama Pasien", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         header = new ALabel(icon);
         header.setHorizontalAlignment(SwingConstants.CENTER);
         dataDiri = new AButton("Edit Data Diri");

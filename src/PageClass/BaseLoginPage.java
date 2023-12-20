@@ -19,6 +19,7 @@ public class BaseLoginPage extends JFrame {
     public BaseLoginPage (){
         main = new APanel(new GridBagLayout());
         title = new ALabel("Login Page", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         tUsername = new ALabel("Username: ", SwingConstants.LEFT);
         tPassword = new ALabel("Password: ", SwingConstants.LEFT);
         Mid = new APanel(new GridLayout(2, 1, 4, 4));
@@ -31,9 +32,6 @@ public class BaseLoginPage extends JFrame {
         Mid.add(username);
         Mid.add(tPassword);
         Mid.add(password);
-
-        title.setOpaque(true);
-        title.setBackground(new Color(255, 0, 0));
 
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;

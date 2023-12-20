@@ -27,6 +27,7 @@ public class PasienJanjiTemu extends JFrame {
         main = new APanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         title = new ALabel("Set Janji Temu", SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(24.0f));
         lDokter = new ALabel("Dokter: ", SwingConstants.LEFT);
         dokter = new AComboBox();
         lTanggal = new ALabel("Tanggal: ", SwingConstants.LEFT);
@@ -88,7 +89,7 @@ public class PasienJanjiTemu extends JFrame {
         c.gridy = 5;
         c.gridx = 0;
         c.gridwidth = 2;
-        main.add(new JScrollPane(table), c);
+        main.add(table.getPane(), c);
 
         c.gridwidth = 1;
         c.gridy = 6;
