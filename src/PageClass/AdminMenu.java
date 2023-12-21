@@ -18,19 +18,23 @@ public class AdminMenu extends JFrame {
     private AButton logout;
 
     public AdminMenu(){
-        ImageIcon icon = new ImageIcon(new ImageIcon("images/img1.jpg").getImage().getScaledInstance(500, 100, Image.SCALE_SMOOTH));
+        ImageIcon icon = new ImageIcon(new ImageIcon("images/img1.jpg").getImage().getScaledInstance(100, 500, Image.SCALE_SMOOTH));
         GridBagConstraints c = new GridBagConstraints();
 
         main = new APanel(new GridBagLayout());
+        APanel wrap = new APanel();
+        wrap.setLayout(new BoxLayout(wrap, BoxLayout.Y_AXIS));
         title = new ALabel("Menu Utama Admin", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(24.0f));
         header = new ALabel(icon);
         doctorAdd = new AButton("Add Doctor");
+        doctorAdd.setPreferredSize(new Dimension(150, 150));
         listPatients = new AButton("List Pasien");
+        listPatients.setPreferredSize(new Dimension(150, 150));
         about = new AButton("About");
+        about.setPreferredSize(new Dimension(150, 150));
         logout = new AButton("Log Out");
-
-        header.setHorizontalAlignment(SwingConstants.CENTER);
+        logout.setPreferredSize(new Dimension(150, 150));
 
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
@@ -40,9 +44,9 @@ public class AdminMenu extends JFrame {
         c.insets = new Insets(10, 5, 10 , 5);
         main.add(title, c);
 
-        c.gridy = 1;
-        c.weighty = 1;
-        main.add(header, c);
+//        c.gridy = 1;
+//        c.weighty = 1;
+//        main.add(header, c);
 
         c.gridy = 2;
         main.add(doctorAdd, c);
@@ -57,8 +61,8 @@ public class AdminMenu extends JFrame {
         main.add(logout, c);
 
         main.setBorder(new EmptyBorder(5, 5, 5, 5));
-        pack();
         add(main);
+        pack();
     }
 
     public AButton getDoctorAdd () {

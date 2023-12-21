@@ -53,6 +53,7 @@ public class Admin extends Base{
         dokterAdd.getHapus().addActionListener(e->{
             int row = dokterAdd.getDataTable().getSelectedRow();
             String id = (String)dokterAdd.getDataTable().getValueAt(row, 0);
+            conn.execPreparedQuery("DELETE FROM janji_temu WHERE dokter_id=?", new String[]{id});
             if (conn.execPreparedQuery("DELETE FROM dokter WHERE dokter_id=?", new String[]{id})){
                 conn.execPreparedQuery("DELETE FROM credentials WHERE credentials_id=?", new String[]{id});
                 refreshDokterTable();
@@ -101,6 +102,7 @@ public class Admin extends Base{
         listPasien.getDelete().addActionListener(e->{
             int row = listPasien.getTable().getSelectedRow();
             int id = Integer.parseInt((String)listPasien.getTable().getValueAt(row, 0));
+            conn.execPreparedQuery("DELETE FROM janji_temu WHERE pasien_id=?", new String[]{Integer.toString(id)});
             if(conn.execPreparedQuery("DELETE FROM pasien WHERE pasien_id=?", new String[]{Integer.toString(id)})) {
                 conn.execPreparedQuery("DELETE FROM credentials WHERE credentials_id=?", new String[]{Integer.toString(id)});
                 refreshListPasienTable();
@@ -239,7 +241,7 @@ public class Admin extends Base{
     private void populateDeptComboBox (){              //need improvements
         DefaultComboBoxModel<String> dept = new DefaultComboBoxModel<>();
         try{
-            ResultSet res = conn.execQPreparedQuery("SELECT * FROM dokter_info", new String[]{});
+            ResultSet res = conn.execQPreparedQuery("SELECT DISTINCT department FROM dokter_info", new String[]{});
             while (res.next()){
                 dept.addElement(res.getString("department"));
             }

@@ -17,12 +17,19 @@ public class BaseLoginPage extends JFrame {
     private AButton register;
 
     public BaseLoginPage (){
-        main = new APanel(new GridBagLayout());
+        main = new APanel(new BorderLayout());
+        APanel box = new APanel();
+        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+
         title = new ALabel("Login Page", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(24.0f));
         tUsername = new ALabel("Username: ", SwingConstants.LEFT);
         tPassword = new ALabel("Password: ", SwingConstants.LEFT);
         Mid = new APanel(new GridLayout(2, 1, 4, 4));
+        APanel midTop = new APanel();
+        midTop.setLayout(new BoxLayout(midTop, BoxLayout.X_AXIS));
+        APanel midBot = new APanel();
+        midBot.setLayout(new BoxLayout(midBot, BoxLayout.X_AXIS));
         username = new ATextField();
         password = new APasswordField();
         submit = new AButton("Login");
@@ -33,43 +40,40 @@ public class BaseLoginPage extends JFrame {
         Mid.add(tPassword);
         Mid.add(password);
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weighty = .8;
-        c.weightx = 1;
-        c.gridwidth = 2;
-        c.insets = new Insets(10, 5, 10 , 5);
-        main.add(title, c);
+        midTop.add(Box.createHorizontalGlue());
+        APanel ins = new APanel(new FlowLayout(FlowLayout.CENTER));
+        ins.add(tUsername);
+        ins.add(username);
+        midTop.add(ins);
+        ins.setPreferredSize(new Dimension(400, 65));
+        ins.setMaximumSize(new Dimension(500, 65));
+        midTop.add(Box.createHorizontalGlue());
+        midBot.add(Box.createHorizontalGlue());
+        APanel ins2 = new APanel(new FlowLayout(FlowLayout.CENTER));
+        ins2.add(tPassword);
+        ins2.add(password);
+        midBot.add(ins2);
+        ins2.setPreferredSize(new Dimension(400, 65));
+        ins2.setMaximumSize(new Dimension(500, 65));
+        midBot.add(Box.createHorizontalGlue());
 
-        c.gridwidth = 1;
-        c.weighty = 1;
-        c.weightx = .1;
-        c.gridy = 1;
-        main.add(tUsername, c);
-        c.gridx = 1;
-        c.weightx = 1;
-        main.add(username, c);
+        box.add(Box.createVerticalGlue());
+        box.add(midTop);
+        box.add(new Box.Filler(new Dimension(0, 5), new Dimension(0, 15), new Dimension(0, 55)));
+        box.add(midBot);
+        box.add(Box.createVerticalGlue());
 
-        c.gridy = 2;
-        c.gridx = 0;
-        c.weightx = .1;
-        main.add(tPassword, c);
-        c.gridx = 1;
-        c.weightx = 1;
-        main.add(password, c);
+        APanel midWrap = new APanel();
+        midWrap.add(Mid);
 
-        c.gridy = 3;
-        c.gridx = 0;
-        c.weighty = .2;
-        c.weightx = .1;
-        c.gridwidth = 1;
-        main.add(register, c);
-        c.gridx = 1;
-        main.add(submit, c);
+        main.add(title, BorderLayout.NORTH);
+        main.add(box, BorderLayout.CENTER);
 
-        main.setMaximumSize(new Dimension(500, 500));
+        APanel bot = new APanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        bot.add(register);
+        bot.add(submit);
+        main.add(bot, BorderLayout.SOUTH);
+
         add(main);
         pack();
     }

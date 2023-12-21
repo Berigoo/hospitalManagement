@@ -51,6 +51,7 @@ public class Dokter extends Base{
         //janji temu menu
         dokterJanjiTemu.getReject().addActionListener(e->{
             int row = dokterJanjiTemu.getTable().getSelectedRow();
+            System.out.println(row);
             String id = (String)dokterJanjiTemu.getTable().getValueAt(row, 0);
             updateJanjiTemu(id, EJanjiTemuStatus.REJECTED);
             refreshTable();

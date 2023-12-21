@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Pasien extends Base{
     private Base parent;
@@ -48,8 +49,18 @@ public class Pasien extends Base{
 
         //janji temu
         pasienJanjiTemu.getSubmit().addActionListener(e->{
-            insertJanjiTemu(pasienJanjiTemu.getTanggal().getText(), pasienJanjiTemu.getWaktu().getText(), pasienJanjiTemu.getDesc().getText(),
-                    Character.toString(((String) pasienJanjiTemu.getDokter().getSelectedItem()).charAt(0)));
+            String check = pasienJanjiTemu.getWaktu().getText();
+            String[] parts = check.split(":");
+            if(Integer.parseInt(parts[0]) <= 23 && Integer.parseInt(parts[1]) <= 59) {
+                String check2 = pasienJanjiTemu.getTanggal().getText();
+                String parts2[] = check2.split("-");
+                if(Integer.parseInt(parts2[1]) <= 12) {
+                    String getId = (String)pasienJanjiTemu.getDokter().getSelectedItem();
+                    String[] parts3 = getId.split(" ");
+                    insertJanjiTemu(pasienJanjiTemu.getTanggal().getText(), pasienJanjiTemu.getWaktu().getText(), pasienJanjiTemu.getDesc().getText(),
+                            parts3[0]);
+                }
+            }
             refreshJanjiTemuTable();
         });
         pasienJanjiTemu.getBack().addActionListener(e->{
@@ -69,8 +80,8 @@ public class Pasien extends Base{
     public void dumpMyOwnData(){
         if(id != -1){
             try{
-                ResultSet res = conn.execQPreparedQuery("SELECT * FROM pasien INNER JOIN credentials ON pasien.pasien_id = credentials.credentials_id",
-                        new String[]{});
+                ResultSet res = conn.execQPreparedQuery("SELECT * FROM pasien INNER JOIN credentials ON pasien.pasien_id = credentials.credentials_id WHERE pasien_id=?",
+                        new String[]{Integer.toString(id)});
                 if(res.next()){
                     pasienEdit.getUsername().setText(res.getString("username"));
                     pasienEdit.getPasswd().setText(res.getString("password"));
